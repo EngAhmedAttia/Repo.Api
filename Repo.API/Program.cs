@@ -1,5 +1,8 @@
 using Data;
+using Entities;
 using Microsoft.EntityFrameworkCore;
+using Repo.DAL.repo;
+using Repo.Entities.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 var con = builder.Configuration.GetConnectionString("con");
@@ -10,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(con));
+builder.Services.AddTransient(typeof(Irepo<>),typeof(Repo<>));
 
 var app = builder.Build();
 
